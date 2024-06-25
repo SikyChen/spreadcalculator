@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电量差价计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      width: 100vw;
+      overflow: hidden;
+      background-color: #fafbfc;
+      color: #444;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .info {
+      margin: 0 10px 10px;
+      font-size: 14px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      padding: 6px;
+      color: #666;
+      background-color: #fff;
+    }
+
+    .title {
+      margin: 0 10px;
+    }
+
+    .row {
+      justify-content: space-between;
+      line-height: 40px;
+      position: relative;
+      padding: 0 0 10px 0;
+    }
+
+    .row > input {
+      cursor: pointer;
+      width: 100vw;
+      height: 40px;
+      border: none;
+      border-top: 1px solid #CCC;
+      border-bottom: 1px solid #CCC;
+      background: #FFF;
+      box-shadow: none;
+      flex-grow: 1;
+      padding: 0;
+      text-indent: 10px;
+    }
+
+    .row > span {
+      position: absolute;
+      right: 10px;
+      top: 2px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    label {
+      display: inline-block;
+      width: 80px;
+    }
+
+    #result {
+      color: #1890ff;
+      font-size: 38px;
+    }
+
+    button {
+      width: 100%;
+      height: 36px;
+      margin-top: 20px;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      outline: none;
+      color: #fff;
+      border-color: #1890ff;
+      background: #1890ff;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    }
+  </style>
+</head>
+<body>
+  <h2>电量差价计算器</h2>
+
+  <div class="info">
+    <div>用法一：输入电量1和电量2，自动计算电量差及差价；</div>
+    <div>用法二：直接输入电量差值，自动计算差价；</div>
+  </div>
+  
+  <div class="title" for="percent1">电量1</div>
+  <p class="row">
+    <input type="number" min="0" max="100" per id="percent1" name="percent1" placeholder="请输入电量1" oninput="handleChange()">
+    <span>%</span>
+  </p>
+
+  <div class="title" for="percent2">电量2</div>
+  <p class="row">
+    <input type="number" min="0" max="100"  id="percent2" name="percent2" placeholder="请输入电量2" oninput="handleChange()">
+    <span>%</span>
+  </p>
+
+  <div class="title" for="diff">电量差值</div>
+  <p class="row">
+    <input type="number" min="0" max="100"  id="diff" name="diff" placeholder="请输入电量差值" oninput="handleChange()">
+    <span>%</span>
+  </p>
+
+  <div class="title">
+    <span>电量总价：73元；</span>
+    <span>
+      <span>差价：</span>
+      <span id="result">0</span>
+      <span class="yuan">元</span>
+    </span>
+  </div>
+
+  <div class="title">
+    <button onclick="handleClear()">清空</button>
+  </div>
+
+  <script>
+    function handleChange() {
+      let percent1 = parseFloat(document.querySelector('#percent1').value);
+      let percent2 = parseFloat(document.querySelector('#percent2').value);
+      let diff = parseFloat(document.querySelector('#diff').value);
+
+      // 限制输入框的值只能为整数
+      if (percent1) {
+        if (percent1 > 100) {
+          percent1 = 100;
+        }
+        if (percent1 < 0) {
+          percent1 = 0;
+        }
+        document.querySelector('#percent1').value = Math.floor(percent1);
+      }
+      if (percent2) {
+        if (percent2 > 100) {
+          percent2 = 100;
+        }
+        if (percent2 < 0) {
+          percent2 = 0;
+        }
+        document.querySelector('#percent2').value = Math.floor(percent2);
+      }
+      if (diff) {
+        if (diff > 100) {
+          diff = 100;
+        }
+        if (diff < 0) {
+          diff = 0;
+        }
+        document.querySelector('#diff').value = Math.floor(diff);
+      }
+
+      // 如果电量1和电量2都没有输入值，或者电量差值没有输入值，则不计算
+      if (((!percent1 && percent1 !== 0) || (!percent2 && percent2 !== 0)) && !diff) {
+        return;
+      }
+
+      // 如果电量1和电量2都有值，则计算电量差值
+      if ((percent1 || percent1 === 0) && (percent2 || percent2 === 0)) {
+        diff = Math.abs(percent1 - percent2);
+        document.querySelector('#diff').value = diff;
+      }
+
+      const price = 73;
+      const diffPrice = parseFloat(price) * diff / 100;
+
+      document.querySelector('#result').textContent = diffPrice;
+    }
+
+    function handleClear() {
+      document.querySelector('#percent1').value = '';
+      document.querySelector('#percent2').value = '';
+      document.querySelector('#diff').value = '';
+      document.querySelector('#result').textContent = '0';
+    }
+  </script>
+</body>
+</html>
