@@ -8,8 +8,8 @@
     body {
       font-family: Arial, sans-serif;
       padding: 0;
-      margin: 0;
-      width: 100vw;
+      margin: 0 5vw;
+      width: 90vw;
       overflow: hidden;
       background-color: #fafbfc;
       color: #444;
@@ -20,7 +20,6 @@
     }
 
     .info {
-      margin: 0 10px 10px;
       font-size: 14px;
       border: 1px solid #CCC;
       border-radius: 4px;
@@ -30,23 +29,23 @@
     }
 
     .title {
-      margin: 0 10px;
+      margin: 0;
     }
 
     .row {
       justify-content: space-between;
-      line-height: 40px;
+      line-height: 50px;
       position: relative;
       padding: 0 0 10px 0;
     }
 
     .row > input {
       cursor: pointer;
-      width: 100vw;
-      height: 40px;
+      width: 100%;
+      height: 50px;
       border: none;
-      border-top: 1px solid #CCC;
-      border-bottom: 1px solid #CCC;
+      border: 1px solid #CCC;
+      border-radius: 4px;
       background: #FFF;
       box-shadow: none;
       flex-grow: 1;
@@ -71,13 +70,13 @@
 
     #result {
       color: #1890ff;
-      font-size: 38px;
+      font-size: 42px;
     }
 
     button {
       width: 100%;
       height: 36px;
-      margin-top: 20px;
+      margin-top: 30px;
       border: 0;
       border-radius: 4px;
       font-size: 16px;
@@ -94,7 +93,7 @@
   <h2>电量差价计算器</h2>
 
   <div class="info">
-    <div>用法一：输入电量1和电量2，自动计算电量差及差价；</div>
+    <div>用法一：输入电量1和电量2，自动计算电量差值和差价；</div>
     <div>用法二：直接输入电量差值，自动计算差价；</div>
   </div>
   
