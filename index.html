@@ -30,7 +30,7 @@
     }
 
     .title {
-      margin: 0;
+      margin: 0 0 10px 0;
     }
 
     .row {
@@ -44,7 +44,7 @@
     .row > input {
       cursor: pointer;
       width: 100%;
-      height: 40px;
+      height: 50px;
       border: none;
       border: 1px solid #CCC;
       border-radius: 4px;
@@ -53,7 +53,7 @@
       flex-grow: 1;
       padding: 0;
       text-indent: 10px;
-      font-size: 16px;
+      font-size: 20px;
     }
 
     .row > span {
@@ -78,7 +78,7 @@
 
     button {
       width: 100%;
-      height: 40px;
+      height: 50px;
       margin-top: 20px;
       border: 0;
       border-radius: 4px;
@@ -95,7 +95,7 @@
 <body>
   <h3>电量差价计算器</h3>
 
-  <div class="info">
+  <!-- <div class="info">
     <div>用法一：输入电量1和电量2，自动计算电量差值和差价；</div>
     <div>用法二：直接输入电量差值，自动计算差价；</div>
   </div>
@@ -110,7 +110,7 @@
   <p class="row">
     <input type="number" min="0" max="100"  id="percent2" name="percent2" placeholder="请输入电量2" oninput="handleChange()">
     <span>%</span>
-  </p>
+  </p> -->
 
   <div class="title" for="diff">电量差值</div>
   <p class="row">
@@ -120,7 +120,7 @@
 
   <div class="title">
     <span>差价：</span>
-    <span id="result">0</span>
+    <span id="result">0.00</span>
     <span class="yuan">元</span>
   </div>
 
@@ -130,29 +130,29 @@
 
   <script>
     function handleChange() {
-      let percent1 = parseFloat(document.querySelector('#percent1').value);
-      let percent2 = parseFloat(document.querySelector('#percent2').value);
+      // let percent1 = parseFloat(document.querySelector('#percent1').value);
+      // let percent2 = parseFloat(document.querySelector('#percent2').value);
       let diff = parseFloat(document.querySelector('#diff').value);
 
       // 限制输入框的值只能为整数
-      if (percent1) {
-        if (percent1 > 100) {
-          percent1 = 100;
-        }
-        if (percent1 < 0) {
-          percent1 = 0;
-        }
-        document.querySelector('#percent1').value = Math.floor(percent1);
-      }
-      if (percent2) {
-        if (percent2 > 100) {
-          percent2 = 100;
-        }
-        if (percent2 < 0) {
-          percent2 = 0;
-        }
-        document.querySelector('#percent2').value = Math.floor(percent2);
-      }
+      // if (percent1) {
+      //   if (percent1 > 100) {
+      //     percent1 = 100;
+      //   }
+      //   if (percent1 < 0) {
+      //     percent1 = 0;
+      //   }
+      //   document.querySelector('#percent1').value = Math.floor(percent1);
+      // }
+      // if (percent2) {
+      //   if (percent2 > 100) {
+      //     percent2 = 100;
+      //   }
+      //   if (percent2 < 0) {
+      //     percent2 = 0;
+      //   }
+      //   document.querySelector('#percent2').value = Math.floor(percent2);
+      // }
       if (diff) {
         if (diff > 100) {
           diff = 100;
@@ -161,30 +161,32 @@
           diff = 0;
         }
         document.querySelector('#diff').value = Math.floor(diff);
+      } else {
+        diff = 0;
       }
 
       // 如果电量1和电量2都没有输入值，或者电量差值没有输入值，则不计算
-      if (((!percent1 && percent1 !== 0) || (!percent2 && percent2 !== 0)) && !diff) {
-        return;
-      }
+      // if (((!percent1 && percent1 !== 0) || (!percent2 && percent2 !== 0)) && !diff) {
+      //   return;
+      // }
 
       // 如果电量1和电量2都有值，则计算电量差值
-      if ((percent1 || percent1 === 0) && (percent2 || percent2 === 0)) {
-        diff = Math.abs(percent1 - percent2);
-        document.querySelector('#diff').value = diff;
-      }
+      // if ((percent1 || percent1 === 0) && (percent2 || percent2 === 0)) {
+      //   diff = Math.abs(percent1 - percent2);
+      //   document.querySelector('#diff').value = diff;
+      // }
 
-      const price = 73;
+      const price = 73.64;
       const diffPrice = parseFloat(price) * diff / 100;
 
-      document.querySelector('#result').textContent = diffPrice;
+      document.querySelector('#result').textContent = (diffPrice).toFixed(2);
     }
 
     function handleClear() {
-      document.querySelector('#percent1').value = '';
-      document.querySelector('#percent2').value = '';
+      // document.querySelector('#percent1').value = '';
+      // document.querySelector('#percent2').value = '';
       document.querySelector('#diff').value = '';
-      document.querySelector('#result').textContent = '0';
+      document.querySelector('#result').textContent = '0.00';
     }
   </script>
 </body>
