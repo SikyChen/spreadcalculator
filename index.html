@@ -30,7 +30,7 @@
     }
 
     .title {
-      margin: 0 0 10px 0;
+      margin: 30px 0 10px 0;
     }
 
     .row {
@@ -79,13 +79,11 @@
     button {
       width: 100%;
       height: 50px;
-      margin-top: 20px;
-      border: 0;
+      border: 1px solid #1890ff;
       border-radius: 4px;
       font-size: 16px;
       outline: none;
       color: #fff;
-      border-color: #1890ff;
       background: #1890ff;
       text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
       box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
@@ -112,14 +110,16 @@
     <span>%</span>
   </p> -->
 
-  <div class="title" for="diff">电量差值</div>
+  <div class="title" for="diff">请输入当前电量SOC值：</div>
   <p class="row">
-    <input type="number" min="0" max="100"  id="diff" name="diff" placeholder="请输入电量差值" oninput="handleChange()">
+    <input type="number" min="0" max="100"  id="diff" name="diff" placeholder="当前SOC值" oninput="handleChange()">
     <span>%</span>
   </p>
 
   <div class="title">
-    <span>差价：</span>
+    <span>已用电量金额：</span>
+  </div>
+  <div>
     <span id="result">0.00</span>
     <span class="yuan">元</span>
   </div>
@@ -153,7 +153,7 @@
       //   }
       //   document.querySelector('#percent2').value = Math.floor(percent2);
       // }
-      if (diff) {
+      if (diff || diff === 0) {
         if (diff > 100) {
           diff = 100;
         }
@@ -162,7 +162,7 @@
         }
         document.querySelector('#diff').value = Math.floor(diff);
       } else {
-        diff = 0;
+        diff = 100;
       }
 
       // 如果电量1和电量2都没有输入值，或者电量差值没有输入值，则不计算
@@ -177,7 +177,7 @@
       // }
 
       const price = 73.64;
-      const diffPrice = parseFloat(price) * diff / 100;
+      const diffPrice = parseFloat(price) * (100 - diff) / 100;
 
       document.querySelector('#result').textContent = (diffPrice).toFixed(2);
     }
